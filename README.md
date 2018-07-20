@@ -8,4 +8,7 @@
 
 - sort
     + bubble: O(n^2)
-     
+    + merge: n * log(n)
+    + quick: n * log(n)
+    + heap: n * log(n)
+    + insert: O(n^2)

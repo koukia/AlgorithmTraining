@@ -4,17 +4,22 @@
 #include "test.h"
 
 
-void bubble_sort(int *data, int len)
+void selection_sort(int *data, int len)
 {
-  int i,j,tmp;
+  int i,j,tmp,min;
 
-  for (i=0;i<len-1;i++){
-    for (j=i+1;j<len;j++){
-      if (data[i] > data[j]){
-        tmp = data[i];
-        data[i] = data[j];
-        data[j] = tmp;
-      }
+  for(i=0;i<len-1;i++){
+    min = i;
+
+    for(j=i+1;j<len;j++){
+      if (data[j] < data[min])
+        min = j;
+    }
+
+    if (i != min){
+      tmp = data[i];
+      data[i] = data[min];
+      data[min] = tmp;
     }
   }
 }
@@ -33,7 +38,8 @@ int main(int argc, char const *argv[])
   }
   printf("\n");
 
-  bubble_sort(data, len);
+  selection_sort(data, len);
   test_sort(data, len);
 }
+
 

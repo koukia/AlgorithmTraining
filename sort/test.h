@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 
-void test_bubble_sort(int *data, int len)
+void test_sort(int *data, int len)
 {
   int i,j;
   int is_passed;
