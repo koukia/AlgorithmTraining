@@ -4,24 +4,44 @@
 #include "test.h"
 
 
-void selection_sort(int *data, int len)
+void merge(int* array, int begin, int end, int mid, int* work)
 {
-  int i,j,tmp,min;
+  int i,j,k;
 
-  for(i=0;i<len-1;i++){
-    min = i;
+  for (i=begin;i<=mid;++i){
+    work[i] = array[i];
+  }
 
-    for(j=i+1;j<len;j++){
-      if (data[j] < data[min])
-        min = j;
-    }
+  for (i=mid+1,j=end;i<=end;++i,--j){
+    work[i] = array[j];
+  }
 
-    if (i != min){
-      tmp = data[i];
-      data[i] = data[min];
-      data[min] = tmp;
+  i = begin;
+  j = end;
+  for (k=begin;k<=end;++k){
+    if (work[i] <= work[j]){
+      array[k] = work[i];
+      ++i;
+    }else{
+      array[k] = work[j];
+      --j;
     }
   }
+}
+
+void merge_sort_rec(int *array, int begin, int end, int* work)
+{
+  int mid;
+
+  if (begin >= end){
+    return;
+  }
+
+  mid = (begin + end) / 2;
+  merge_sort_rec(array, begin, mid, work);
+  merge_sort_rec(array, mid+1, end, work);
+
+  merge(array, begin, end, mid, work);
 }
 
 int main(int argc, char const *argv[])
@@ -38,7 +58,10 @@ int main(int argc, char const *argv[])
   }
   printf("\n");
 
-  selection_sort(data, len);
+  int* work;
+  work = malloc( sizeof(int) * len );
+  merge_sort_rec(data, 0, len-1, work);
+  free(work);
   test_sort(data, len);
 }
 
